@@ -1,19 +1,19 @@
 cabal-version: 3.0
 name:
-  libase64-bindings
+  libbase64-bindings
 version:
   0.1
 synopsis:
   wrapper over the libbase64 c library
 description:
-  Haskell wrapper of <https://github.com/aklomp/base64 libase64 SIMD library>
+  Haskell wrapper of <https://github.com/aklomp/base64 libbase64 SIMD library>
   .
   This library is intended to be simply a wrapper over the C library. It provides
   nothing in the way of a nice API or abstractions to make wortking with it "easy".
   Instead, it is meant to be a building block for other libraries to take up that
   more opinionated work.
 homepage:
-  https://github.com/chessai/libase64-bindings
+  https://github.com/chessai/libbase64-bindings
 license:
   BSD-3-Clause
 license-file:
@@ -48,7 +48,7 @@ library
   extra-libraries:
     base64
 
-test-suite libase64-bindings-test
+test-suite libbase64-bindings-test
   import:
     warnings
   -- other-modules:
@@ -61,4 +61,6 @@ test-suite libase64-bindings-test
     Main.hs
   build-depends:
     , base
-    , libase64-bindings
+    , libbase64-bindings
+    , QuickCheck
+    , quickcheck-classes-base
