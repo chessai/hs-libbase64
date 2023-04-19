@@ -34,7 +34,7 @@ let
     root = nix-gitignore.gitignoreSource ./.;
 
     modifier = drv: hsLib.overrideCabal drv (old: {
-      #librarySystemDepends = (old.librarySystemDepends or []) ++ [pkgs.libbase64];
+      librarySystemDepends = (old.librarySystemDepends or []) ++ [pkgs.libbase64];
 
       configureFlags = (old.configureFlags or []) ++ [
         "--extra-lib-dirs=${pkgs.libbase64}/lib"
