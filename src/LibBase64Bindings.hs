@@ -19,8 +19,18 @@ module LibBase64Bindings
     base64_stream_decode,
 
     Base64State(..),
+
+    _BASE64_FORCE_AVX2,
+    _BASE64_FORCE_NEON32,
+    _BASE64_FORCE_NEON64,
+    _BASE64_FORCE_PLAIN,
+    _BASE64_FORCE_SSSE3,
+    _BASE64_FORCE_SSE41,
+    _BASE64_FORCE_SSE42,
+    _BASE64_FORCE_AVX,
   ) where
 
+import Data.Bits (shiftL)
 import Foreign.C.String (CString)
 import Foreign.C.Types (CInt(..), CSize(..), CUChar)
 import Foreign.Ptr (Ptr)
@@ -173,3 +183,35 @@ foreign import capi "libbase64.h base64_stream_decode"
     -> CString         -- ^ \*out
     -> Ptr CSize       -- ^ \*outlen
     -> IO CInt
+
+-- | Force AVX2.
+_BASE64_FORCE_AVX2 :: CInt
+_BASE64_FORCE_AVX2 = 1 `shiftL` 0
+
+-- | Force NEON32.
+_BASE64_FORCE_NEON32 :: CInt
+_BASE64_FORCE_NEON32 = 1 `shiftL` 1
+
+-- | Force NEON64.
+_BASE64_FORCE_NEON64 :: CInt
+_BASE64_FORCE_NEON64 = 1 `shiftL` 2
+
+-- | Force PLAIN.
+_BASE64_FORCE_PLAIN :: CInt
+_BASE64_FORCE_PLAIN = 1 `shiftL` 3
+
+-- | Force SSSE3.
+_BASE64_FORCE_SSSE3 :: CInt
+_BASE64_FORCE_SSSE3 = 1 `shiftL` 4
+
+-- | Force SSE41.
+_BASE64_FORCE_SSE41 :: CInt
+_BASE64_FORCE_SSE41 = 1 `shiftL` 5
+
+-- | Force SSE41.
+_BASE64_FORCE_SSE42 :: CInt
+_BASE64_FORCE_SSE42 = 1 `shiftL` 6
+
+-- | Force AVX.
+_BASE64_FORCE_AVX :: CInt
+_BASE64_FORCE_AVX = 1 `shiftL` 7
