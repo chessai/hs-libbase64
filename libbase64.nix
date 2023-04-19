@@ -83,9 +83,9 @@ let
         let s = find (s: s.ext == ext) supports;
         in if builtins.isNull s
            then builtins.throw
-                  ("libase64: invalid SIMD extension: \"${ext}\".\nValid SIMD extensions are: ${builtins.toString validExts}")
+                  ("libbase64: invalid SIMD extension: \"${ext}\".\nValid SIMD extensions are: ${builtins.toString validExts}")
            else s;
-    in if flag.isSupported then flag else builtins.throw "libase64: ${ext} is not supported on your platform.";
+    in if flag.isSupported then flag else builtins.throw "libbase64: ${ext} is not supported on your platform.";
 
   #validateMandatory = exts:
 */
