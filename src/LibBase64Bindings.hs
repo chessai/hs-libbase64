@@ -38,6 +38,7 @@ import Foreign.Storable (Storable(..))
 --
 -- Thus any 'Ptr' 'Base64State' passed to any of the `init` functions
 -- should be something like
+--
 -- @
 -- state <- mallocBytes (sizeOf (undefined :: Base64State))
 -- @
@@ -52,6 +53,7 @@ data Base64State = Base64State
     flags :: CInt,
     carry :: CUChar
   }
+  deriving (Eq, Ord, Show)
 
 instance Storable Base64State where
   sizeOf _ = 4 * sizeOfCInt
@@ -82,17 +84,17 @@ sizeOfCInt = sizeOf (undefined :: CInt)
 --   - The buffer in @out@ has been allocated by the caller and is at least 4/3 the size of the input.
 foreign import capi "libbase64.h base64_encode"
   base64_encode :: ()
-    => CString   -- ^ *src
+    => CString   -- ^ \*src
     -> CSize     -- ^ srclen
-    -> CString   -- ^ *out
-    -> Ptr CSize -- ^ *outlen
+    -> CString   -- ^ \*out
+    -> Ptr CSize -- ^ \*outlen
     -> CInt      -- ^ flags
     -> IO ()
 
 -- | Call this before calling 'base64_stream_encode' to init the state.
 foreign import capi "libbase64.h base64_stream_encode_init"
   base64_stream_encode_init :: ()
-    => Ptr Base64State -- ^ *state
+    => Ptr Base64State -- ^ \*state
     -> CInt            -- ^ flags
     -> IO ()
 
@@ -106,11 +108,11 @@ foreign import capi "libbase64.h base64_stream_encode_init"
 --   Does not zero-terminate or finalize the output.
 foreign import capi "libbase64.h base64_stream_encode"
   base64_stream_encode :: ()
-    => Ptr Base64State -- ^ *state
-    -> CString         -- ^ *src
+    => Ptr Base64State -- ^ \*state
+    -> CString         -- ^ \*src
     -> CSize           -- ^ srclen
-    -> CString         -- ^ *out
-    -> Ptr CSize       -- ^ *outlen
+    -> CString         -- ^ \*out
+    -> Ptr CSize       -- ^ \*outlen
     -> IO ()
 
 -- | Finalizes the output begun by previous calls to 'base64_stream_encode'.
@@ -120,9 +122,9 @@ foreign import capi "libbase64.h base64_stream_encode"
 --   @outlen@ is modified and will contain the number of new bytes written at out (which will quite often be zero).
 foreign import capi "libbase64.h base64_stream_encode_final"
   base64_stream_encode_final :: ()
-    => Ptr Base64State -- ^ *state
-    -> CString         -- ^ *out
-    -> Ptr CSize       -- ^ *outlen
+    => Ptr Base64State -- ^ \*state
+    -> CString         -- ^ \*out
+    -> Ptr CSize       -- ^ \*outlen
     -> IO ()
 
 ------------
@@ -139,17 +141,17 @@ foreign import capi "libbase64.h base64_stream_encode_final"
 --   Returns -1 if the chosen codec is not included in the current build.
 foreign import capi "libbase64.h base64_decode"
   base64_decode :: ()
-    => CString   -- ^ *src
+    => CString   -- ^ \*src
     -> CSize     -- ^ srclen
-    -> CString   -- ^ *out
-    -> Ptr CSize -- ^ *outlen
+    -> CString   -- ^ \*out
+    -> Ptr CSize -- ^ \*outlen
     -> CInt      -- ^ flags
     -> IO CInt
 
 -- | Call this before calling 'base64_stream_decode' to init the state.
 foreign import capi "libbase64.h base64_stream_decode_init"
   base64_stream_decode_init :: ()
-    => Ptr Base64State -- ^ *state
+    => Ptr Base64State -- ^ \*state
     -> CInt            -- ^ flags
     -> IO ()
 
@@ -165,9 +167,9 @@ foreign import capi "libbase64.h base64_stream_decode_init"
 --   Returns -1 if the chosen codec is not included in the current build.
 foreign import capi "libbase64.h base64_stream_decode"
   base64_stream_decode :: ()
-    => Ptr Base64State -- ^ *state
-    -> CString         -- ^ *src
+    => Ptr Base64State -- ^ \*state
+    -> CString         -- ^ \*src
     -> CSize           -- ^ srclen
-    -> CString         -- ^ *out
-    -> Ptr CSize       -- ^ *outlen
+    -> CString         -- ^ \*out
+    -> Ptr CSize       -- ^ \*outlen
     -> IO CInt

@@ -6,9 +6,9 @@ version:
 synopsis:
   wrapper over the libbase64 c library
 description:
-  Haskell wrapper of libbase64 SIMD library (https://github.com/aklomp/base64)
+  Haskell wrapper of <https://github.com/aklomp/base64 libase64 SIMD library>
   .
-  This module is intended to be simply a wrapper over the C library. It provides
+  This library is intended to be simply a wrapper over the C library. It provides
   nothing in the way of a nice API or abstractions to make wortking with it "easy".
   Instead, it is meant to be a building block for other libraries to take up that
   more opinionated work.
@@ -27,7 +27,6 @@ build-type:
   Simple
 extra-doc-files:
   CHANGELOG.md
--- extra-source-files:
 
 common warnings
   ghc-options:
